@@ -62,12 +62,27 @@ def insert_github_logo():
         unsafe_allow_html=True,
     )
 
+def hideMenuandFooter():
+    hide_menu_footer_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+    st.markdown(hide_menu_footer_style, unsafe_allow_html=True)
 
-with open("style.css") as f:
-    st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
+def applyStyleCSS():
+    with open("style.css") as f:
+        st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
 
+
+# Background HTML scripts using Markdown
+hideMenuandFooter()
+applyStyleCSS()
+
+# Path to folder containing images
 folder = 'mazes/'
-
+    
 imageDict = {}
 for i in os.listdir(folder):
     imageDict[str(i[:-4])] = "".join((folder, i))
@@ -87,12 +102,5 @@ imageLocation.image(imageDict[key], caption="Original Maze")
 if btn:
     solve(imageDict[key])
 
-hide_menu_style = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        </style>
-        """
-st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 insert_github_logo()
