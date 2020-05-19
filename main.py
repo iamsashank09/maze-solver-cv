@@ -50,6 +50,17 @@ def solve(fileImage, kSize = 21):
     imageLocation.image(img, caption="Solved Puzzle")
 
 
+def insert_github_logo():
+    st.markdown(
+        "<br>"
+        '<div style="text-align: center;">'
+        '<a href="https://github.com/iamsashank09"> '
+        '<img src="https://image.flaticon.com/icons/png/128/1051/1051326.png" width=64>'
+        " </img>"
+        "</a> </div>",
+        unsafe_allow_html=True,
+    )
+
 folder = 'mazes/'
 
 imageDict = {}
@@ -80,6 +91,8 @@ hide_menu_style = """
         </style>
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
+
+insert_github_logo()
 
 
 # st.image(imageDict[key], use_column_width=True, caption=imageDict[key])
