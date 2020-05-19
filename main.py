@@ -41,8 +41,6 @@ def solve(fileImage, kSize = 21):
 
     diff = cv2.absdiff(erosion, dilated)
 
-    # displayImg([diff],['Difference'])
-
     img = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
 
     img[diff==255] = (0,255,0)
@@ -57,9 +55,16 @@ def insert_github_logo():
         '<a href="https://github.com/iamsashank09"> '
         '<img src="https://image.flaticon.com/icons/png/128/1051/1051326.png" width=64>'
         " </img>"
-        "</a> </div>",
+        "</a> "
+        "<br>"
+        '<h> Built by Sashank Kakaraparty </h>'
+        "</div>",
         unsafe_allow_html=True,
     )
+
+
+with open("style.css") as f:
+    st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
 
 folder = 'mazes/'
 
@@ -67,12 +72,9 @@ imageDict = {}
 for i in os.listdir(folder):
     imageDict[str(i[:-4])] = "".join((folder, i))
 
-'''
-# Maze Puzzle Solver
-Solving Maze Puzzle's using Morphological Operations - Computer Vision.
-### Select a maze from the dropdown and click on solve:
-
-'''
+st.markdown("<h1 style='text-align: center; color: black;'>Maze Puzzle Solver</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: black;'>Solving Maze Puzzles using Morphological Operations - Computer Vision.</p>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: black;'>Select a maze from the dropdown and click on solve:</h3>", unsafe_allow_html=True)
 
 key = st.selectbox("Picture choices", list(imageDict.keys()), 0)
 
@@ -88,12 +90,9 @@ if btn:
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
         </style>
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 insert_github_logo()
-
-
-# st.image(imageDict[key], use_column_width=True, caption=imageDict[key])
-# imageLocation.image(imageDict[key], use_column_width=True, caption=imageDict[key])

@@ -1,0 +1,14 @@
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+.fullScreenFrame > div {
+    display: flex;
+    justify-content: center;
+
+}
+
+.element-container > div{
+    display: flex;
+    justify-content: center;
+}
