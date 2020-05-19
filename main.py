@@ -5,7 +5,7 @@ import numpy as np
 import time
 
 def solve(fileImage, kSize = 21):
-    sleepTime = 1
+    sleepTime = 0.5
     orgimg = cv2.imread(fileImage, 0)
     img = orgimg.copy()
 
