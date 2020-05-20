@@ -56,7 +56,7 @@ def insert_github_logo():
     st.markdown(
         "<br>"
         '<div style="text-align: center;">'
-        '<a href="https://github.com/iamsashank09"> '
+        '<a target="_blank" rel="noopener noreferrer" href="https://github.com/iamsashank09"> '
         '<img src="https://image.flaticon.com/icons/png/128/1051/1051326.png" width=64>'
         " </img>"
         "</a> "
@@ -94,17 +94,17 @@ for i in os.listdir(folder):
     imageDict[str(i[:-4])] = "".join((folder, i))
 
 st.markdown("<h1 style='text-align: center; color: black;'>Maze Puzzle Solver</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: black;'>Solving Maze Puzzles using Morphological Operations - Computer Vision.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: black;'>Solving Maze Puzzles from <mark>Images</mark> using Morphological Operations - Computer Vision.</p>", unsafe_allow_html=True)
 
-uploadType = st.radio("Type of Maze: ", [ "Try out available mazes", "Upload Custom Maze to Solve"])
+uploadType = st.radio("Type of Maze: ", [ "Try out available Maze Images", "Upload Custom Maze image to Solve"])
 
-if uploadType == "Upload Custom Maze to Solve" : 
+if uploadType == "Upload Custom Maze image to Solve" : 
     uploadOwn = True 
 else: 
     uploadOwn = False 
 
 if not uploadOwn:
-    st.markdown("<h3 style='text-align: center; color: black;'>Select a maze from the dropdown and click on solve:</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: black;'>Select a maze image from the dropdown and click on solve:</h3>", unsafe_allow_html=True)
     key = st.selectbox("Picture choices", list(imageDict.keys()), 0)
     filenameDropDown = imageDict[key]
     ImgCV = cv2.imread(filenameDropDown, 0)
@@ -112,11 +112,11 @@ if not uploadOwn:
 
 if uploadOwn:
     st.markdown(
-        '<a href="http://mazegenerator.net/Default.aspx">'
-        '<p>Generate and Download custom mazes from MazeGenerator.net [RECTANGULAR MAZES ONLY]</p>'
+        '<a target="_blank" rel="noopener noreferrer" href="http://mazegenerator.net/Default.aspx">'
+        '<p>Generate and Download custom mazes from MazeGenerator.net in PNG format ONLY. [RECTANGULAR MAZES]</p>'
         '</a>', 
     unsafe_allow_html=True)
-    filenameUpload = st.file_uploader("Choose an image...", type="png")
+    filenameUpload = st.file_uploader("Upload Maze Image [PNG FORMAT]", type="png")
     if filenameUpload is not None:
         ImgPIL = Image.open(filenameUpload)
         ImgCV = cv2.cvtColor(np.uint8(np.array(ImgPIL)), cv2.COLOR_BGR2GRAY)

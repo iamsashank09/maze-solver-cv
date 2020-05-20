@@ -12,3 +12,8 @@ body {
     display: flex;
     justify-content: center;
 }
+
+mark {
+    background-color: yellow;
+    color: black;
+  }
