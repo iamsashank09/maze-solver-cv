@@ -130,7 +130,7 @@ btn = st.button("Solve the maze!")
 imageLocation = st.empty()
 
 if ImgCV is not None:
-    imageLocation.image(ImgCV, caption="Original Maze")
+    imageLocation.image(ImgCV, use_column_width=True, caption="Original Maze")
 
 if btn:
     if ImgCV is not None:
