@@ -87,7 +87,7 @@ applyStyleCSS()
 # Path to folder containing images
 folder = 'mazes/'
 
-# uploadOwn = False
+uploadOwn = False
     
 imageDict = {}
 for i in os.listdir(folder):
