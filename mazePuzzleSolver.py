@@ -15,7 +15,7 @@ def solve(ImgCV, kSize = 21):
     # kSize = 21
 
     ret, binaryImage = cv2.threshold(img, 10, 255, cv2.THRESH_BINARY_INV)
-    imageLocation.image(binaryImage, caption="Binary Image")
+    imageLocation.image(binaryImage, use_column_width=True, caption="Binary Image")
     time.sleep(sleepTime)
 
     print(" While binary ",binaryImage.dtype)
@@ -26,20 +26,20 @@ def solve(ImgCV, kSize = 21):
 
     cv2.drawContours(path, contours, 0, (255,255,255), cv2.FILLED)
 
-    imageLocation.image(path, caption='After contour')
+    imageLocation.image(path, use_column_width=True, caption='After contour')
 
     time.sleep(sleepTime)
 
     kernel = np.ones((kSize,kSize),np.uint8)
     dilated = cv2.dilate(path,kernel,iterations = 1)
-    imageLocation.image(dilated, caption="Dilated")
+    imageLocation.image(dilated, use_column_width=True, caption="Dilated")
 
     time.sleep(sleepTime)
 
     kernel = np.ones((int(kSize/2),int(kSize/2)),np.uint8)
     erosion = cv2.erode(dilated,kernel,iterations = 1)
 
-    imageLocation.image(erosion, caption="Eroded")
+    imageLocation.image(erosion, use_column_width=True, caption="Eroded")
 
     time.sleep(sleepTime)
 
@@ -49,7 +49,7 @@ def solve(ImgCV, kSize = 21):
 
     img[diff==255] = (0,255,0)
 
-    imageLocation.image(img, caption="Solved Puzzle")
+    imageLocation.image(img, use_column_width=True, caption="Solved Puzzle")
 
 
 def insert_github_logo():
