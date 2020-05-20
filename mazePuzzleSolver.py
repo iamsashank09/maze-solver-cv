@@ -3,11 +3,13 @@ import os
 import cv2
 import numpy as np
 import time
+from PIL import Image
 
-def solve(fileImage, kSize = 21):
+def solve(ImgCV, kSize = 21):
     sleepTime = 0.5
-    orgimg = cv2.imread(fileImage, 0)
-    img = orgimg.copy()
+
+    img = ImgCV.copy()
+    imageLocation.image(img, caption="MY WISH")
 
     # meankSize, minkSize, modekSize = findKernel(img)
     # print(meankSize, minkSize, modekSize)
@@ -16,6 +18,9 @@ def solve(fileImage, kSize = 21):
     ret, binaryImage = cv2.threshold(img, 10, 255, cv2.THRESH_BINARY_INV)
     imageLocation.image(binaryImage, caption="Binary Image")
     time.sleep(sleepTime)
+
+    print(" While binary ",binaryImage.dtype)
+
     contours, hierarchy = cv2.findContours(binaryImage, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     path = np.zeros(binaryImage.shape, np.uint8)
@@ -82,6 +87,8 @@ applyStyleCSS()
 
 # Path to folder containing images
 folder = 'mazes/'
+
+uploadOwn = False
     
 imageDict = {}
 for i in os.listdir(folder):
@@ -89,18 +96,46 @@ for i in os.listdir(folder):
 
 st.markdown("<h1 style='text-align: center; color: black;'>Maze Puzzle Solver</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: black;'>Solving Maze Puzzles using Morphological Operations - Computer Vision.</p>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; color: black;'>Select a maze from the dropdown and click on solve:</h3>", unsafe_allow_html=True)
 
-key = st.selectbox("Picture choices", list(imageDict.keys()), 0)
+uploadType = st.radio("Type of Maze: ", [ "Try out available mazes", "Upload Custom Maze to Solve"])
+
+if uploadType == "Upload Custom Maze to Solve" : 
+    uploadOwn = True 
+else: 
+    uploadOwn = False 
+
+if not uploadOwn:
+    st.markdown("<h3 style='text-align: center; color: black;'>Select a maze from the dropdown and click on solve:</h3>", unsafe_allow_html=True)
+    key = st.selectbox("Picture choices", list(imageDict.keys()), 0)
+    filenameDropDown = imageDict[key]
+    ImgCV = cv2.imread(filenameDropDown, 0)
+    fileName = filenameDropDown
+
+if uploadOwn:
+    st.markdown(
+        '<a href="http://mazegenerator.net/Default.aspx">'
+        '<p>Generate and Download custom mazes from MazeGenerator.net [RECTANGULAR MAZES ONLY]</p>'
+        '</a>', 
+    unsafe_allow_html=True)
+    filenameUpload = st.file_uploader("Choose an image...", type="png")
+    if filenameUpload is not None:
+        ImgPIL = Image.open(filenameUpload)
+        ImgCV = cv2.cvtColor(np.uint8(np.array(ImgPIL)), cv2.COLOR_BGR2GRAY)
+        fileName = filenameUpload
+    else:
+        ImgCV = None
 
 btn = st.button("Solve the maze!")
 
 # kSize = st.sidebar.slider(label = "Kernel Size", value = 21)
 imageLocation = st.empty()
-imageLocation.image(imageDict[key], caption="Original Maze")
+
+if ImgCV is not None:
+    imageLocation.image(ImgCV, caption="Original Maze")
 
 if btn:
-    solve(imageDict[key])
+    if ImgCV is not None:
+        solve(ImgCV)
 
 
 insert_github_logo()
