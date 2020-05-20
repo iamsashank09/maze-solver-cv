@@ -11,8 +11,8 @@ def solve(ImgCV, kSize = 21):
     img = ImgCV.copy()
 
     # meankSize, minkSize, modekSize = findKernel(img)
-    # print(meankSize, minkSize, modekSize)
-    # kSize = 21
+    # print(meankSize, minkSize, modekSize) 
+    # # kSize = 21
 
     ret, binaryImage = cv2.threshold(img, 10, 255, cv2.THRESH_BINARY_INV)
     imageLocation.image(binaryImage, use_column_width=True, caption="Binary Image")
