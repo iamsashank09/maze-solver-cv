@@ -9,7 +9,6 @@ def solve(ImgCV, kSize = 21):
     sleepTime = 0.5
 
     img = ImgCV.copy()
-    imageLocation.image(img, caption="MY WISH")
 
     # meankSize, minkSize, modekSize = findKernel(img)
     # print(meankSize, minkSize, modekSize)
